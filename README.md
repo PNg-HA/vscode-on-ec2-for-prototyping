@@ -1,9 +1,8 @@
-> [!NOTE]
-> 日本語のドキュメントは [こちら](/README.jp.md)
-
 # Visual Studio Code on EC2
 
-This repository introduces how to access and use VSCode hosted on EC2 from a browser. The connection is made via Session Manager, so IAM permissions are used for authentication. The access destination will be localhost. Please note that this repository does not introduce connecting from your local VSCode to an EC2 instance via Remote SSH.
+This repository introduces how to access and use VSCode hosted on EC2 from a browser. The connection is made via Session Manager, so IAM permissions are used for authentication. The access destination will be localhost. Please note that this repository does not introduce connecting from your local VSCode to an EC2 instance via Remote SSH. 
+
+I run this workshop in Ubuntu Desktop 22.04. In the workshop, you will see the terminal from the Windows, that is because I have SSH to the Ubuntu Desktop from my Window 11 for easy use.
 
 ## Features
 - You can use VSCode from a browser
@@ -18,7 +17,34 @@ This repository introduces how to access and use VSCode hosted on EC2 from a bro
 - `git` command
 - `jq` command (not required. Needed when executing session.sh described later)
 
-If it is difficult to prepare the environment locally, [CloudShell](https://console.aws.amazon.com/cloudshell/home) can be used as an alternative, but the steps from `session.sh` onwards need to be performed locally (because a session is created to localhost via SessionManager).
+### Install nodejs
+Refer: https://www.youtube.com/watch?v=kYtRSSpUduw
+1. Run the command `sudo apt install nodejs`.
+2. Run the command `sudo apt install npm`.
+3. Run the command `sudo npm install -g n`
+
+![image](https://github.com/user-attachments/assets/61bdc8a7-b088-4731-bb9f-95b69f11dc33)
+
+5. Run the command `sudo n lts`.
+   
+![image](https://github.com/user-attachments/assets/58762f10-5831-4a25-ab15-ed4d89bba205)
+
+Check version:
+
+![image](https://github.com/user-attachments/assets/9af23ebe-53b6-4542-a7f1-e84133ed4527)
+
+### Install Session Manager plugin
+1. Run the command
+```bash
+curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
+```
+
+2. Run the command
+```bash
+sudo dpkg -i session-manager-plugin.deb
+```
+
+![image](https://github.com/user-attachments/assets/81de7e05-2672-418d-b1a5-c20c139c8393)
 
 ## Installation
 
@@ -34,17 +60,28 @@ The application uses the [AWS Cloud Development Kit](https://aws.amazon.com/cdk/
 npm ci
 ```
 
+![image](https://github.com/user-attachments/assets/5dd85c67-8096-45f1-a4e0-579a14a44087)
+
+
 If you have never used CDK before, a [Bootstrap](https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html) process is required only the first time. The following command is not required if already bootstrapped.
 
 ```bash
 npx cdk bootstrap
 ```
 
+![image](https://github.com/user-attachments/assets/b6c24c3a-9f45-4f01-85f6-37d06b9a78b8)
+
+
 Then deploy the AWS resources with the following command:
 
 ```bash
 npx cdk deploy
 ```
+![image](https://github.com/user-attachments/assets/eb8c0ed9-34a7-4e6b-98f0-1e962a1331f5)
+
+When it asks "Do you wish to deploy?" Type y;
+![image](https://github.com/user-attachments/assets/bc4971bf-a5d2-4aee-b093-c0ff6c0d6557)
+
 
 After deployment completes, check that the EC2 instance was created in the [management console](https://console.aws.amazon.com/ec2/home#Instances). Also please confirm that the Status check changes from Initializing to checks passed. 
 
@@ -54,56 +91,11 @@ Once checks passed is confirmed, run `session.sh` to create a session:
 ./session.sh
 ```
 
-If Unix-like commands cannot be used locally, run the following command instead. The Instance ID and Private IP can be confirmed in the management console mentioned above, or output when running `cdk deploy` as `VscodeOnEc2ForPrototypingStack.InstanceID` and `VscodeOnEc2ForPrototypingStack.PrivateIP` respectively.
-
-```bash
-# Replace the two values enclosed in <>
-
-aws ssm start-session \
-    --target <EC2 instance Instance ID> \
-    --document-name AWS-StartPortForwardingSessionToRemoteHost \
-    --parameters "{\"portNumber\":[\"8080\"],\"localPortNumber\":[\"8080\"],\"host\":[\"<EC2 instance Private IP>\"]}"
-```
+![image](https://github.com/user-attachments/assets/2b4b9c43-1227-46e1-a967-0b38d27f0933)
 
 Once the session is created, open http://localhost:8080 in your browser. If it does not connect, please refer to [Troubleshooting](#Troubleshooting).
+![image](https://github.com/user-attachments/assets/0f214ead-8bf1-42f7-ae7a-cafca0af7b61)
 
-## Configurations
-
-The values in the `context` of [cdk.json](/cdk.json) can be modified to change some items.
-
-- `volume` The storage size (GB) of the EC2 instance hosting VSCode
-- `nvm` The version of `nvm` used to install Node.js
-- `node` The version of Node.js
-
-## Troubleshooting
-
-The same phenomenon described in [this Issue](https://github.com/amazonlinux/amazon-linux-2023/issues/397) may occur. **If the browser cannot connect after creating a session, first suspect this.
-
-To check for errors, first open the [management console](https://console.aws.amazon.com/ec2/home#Instances) and select the created EC2 instance. Then click Connect at the top and open the Session Manager tab and click Connect.
-
-Open a terminal and run the following command. This will show the execution results of the commands run when initializing the EC2 instance:
-
-```bash
-sudo cat /var/log/cloud-init-output.log
-```
-
-If this shows an error like `[Errno 2] No such file or directory: '/var/cache/dnf/amazonlinux-...`, the code command installation failed. In that case, reinstall with:
-
-```bash
-sudo yum install -y code
-```
-
-After successful installation, run:
-
-```bash
-sudo systemctl start code-server
-```
-
-Try creating a session with `session.sh` and connecting in the browser (http://localhost:8080) again. You will no longer need to run these steps again after the initial code installation, such as when closing and reopening the browser tab, or restarting the EC2 instance.
-
-## Future works
-- [ ] Make it possible to import existing VPC
-- [ ] Allow selecting instance type
 
 ## Cleanup
 
@@ -112,6 +104,7 @@ To delete the environment, run the following command:
 ```
 npx cdk destroy
 ```
+![image](https://github.com/user-attachments/assets/311b4d8c-bd2b-4056-89fc-973ec3efdbfa)
 
 ## Security
 
