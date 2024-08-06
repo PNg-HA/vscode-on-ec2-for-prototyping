@@ -92,10 +92,12 @@ npx cdk deploy
 ![image](https://github.com/user-attachments/assets/bc4971bf-a5d2-4aee-b093-c0ff6c0d6557)
 
 
-6. After deployment completes, check that the EC2 instance was created in the [management console](https://console.aws.amazon.com/ec2/home#Instances). Also please confirm that the Status check changes from Initializing to checks passed. 
+6. After deployment completes, check that the EC2 instance was created in the [management console](https://console.aws.amazon.com/ec2/home#Instances). Also please confirm that the Status check changes from Initializing to checks passed.
+
+![image](https://github.com/user-attachments/assets/f3844dee-376f-41db-8e21-9adebf12fa04)
 
 
-7. Once checks passed is confirmed, run `session.sh` to create a session:
+8. Once checks passed is confirmed, run `session.sh` to create a session:
 
 ```bash
 ./session.sh
