@@ -1,4 +1,4 @@
-# Visual Studio Code on EC2
+# Hosting Visual Studio Code on EC2
 
 This repository introduces how to access and use VSCode hosted on EC2 from a browser. The connection is made via Session Manager, so IAM permissions are used for authentication. The access destination will be localhost. Please note that this repository does not introduce connecting from your local VSCode to an EC2 instance via Remote SSH. 
 
