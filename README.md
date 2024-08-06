@@ -2,7 +2,7 @@
 
 This repository introduces how to access and use VSCode hosted on EC2 from a browser. The connection is made via Session Manager, so IAM permissions are used for authentication. The access destination will be localhost. Please note that this repository does not introduce connecting from your local VSCode to an EC2 instance via Remote SSH. 
 
-I run this workshop in Ubuntu Desktop 22.04. In the workshop, you will see the terminal from the Windows, that is because I have SSH to the Ubuntu Desktop from my Window 11 for easy use.
+I run this workshop in Ubuntu Desktop 22.04. In the workshop, you will see the Window Terminal. That is because I have SSH to the Ubuntu Desktop from my Window 11 for easier usage. You can just use the terminal in the Ubuntu Desktop.
 
 ## Features
 - You can use VSCode from a browser
