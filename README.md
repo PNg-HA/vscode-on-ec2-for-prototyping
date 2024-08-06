@@ -22,8 +22,7 @@ Refer: https://www.youtube.com/watch?v=kYtRSSpUduw
 1. Run the command `sudo apt install nodejs`.
 2. Run the command `sudo apt install npm`.
 3. Run the command `sudo npm install -g n`
-
-![image](https://github.com/user-attachments/assets/61bdc8a7-b088-4731-bb9f-95b69f11dc33)
+<img width="30%" src=https://github.com/user-attachments/assets/61bdc8a7-b088-4731-bb9f-95b69f11dc33>
 
 5. Run the command `sudo n lts`.
    
@@ -31,7 +30,8 @@ Refer: https://www.youtube.com/watch?v=kYtRSSpUduw
 
 Check version:
 
-![image](https://github.com/user-attachments/assets/9af23ebe-53b6-4542-a7f1-e84133ed4527)
+<img width="30%" src=https://github.com/user-attachments/assets/9af23ebe-53b6-4542-a7f1-e84133ed4527>
+
 
 ### Install Session Manager plugin
 1. Run the command
@@ -59,8 +59,7 @@ The application uses the [AWS Cloud Development Kit](https://aws.amazon.com/cdk/
 ```bash
 npm ci
 ```
-
-![image](https://github.com/user-attachments/assets/5dd85c67-8096-45f1-a4e0-579a14a44087)
+<img width="80%" src=https://github.com/user-attachments/assets/5dd85c67-8096-45f1-a4e0-579a14a44087>
 
 
 If you have never used CDK before, a [Bootstrap](https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html) process is required only the first time. The following command is not required if already bootstrapped.
@@ -90,8 +89,8 @@ Once checks passed is confirmed, run `session.sh` to create a session:
 ```bash
 ./session.sh
 ```
+<img width="60%" src=https://github.com/user-attachments/assets/2b4b9c43-1227-46e1-a967-0b38d27f0933>
 
-![image](https://github.com/user-attachments/assets/2b4b9c43-1227-46e1-a967-0b38d27f0933)
 
 Once the session is created, open http://localhost:8080 in your browser. If it does not connect, please refer to [Troubleshooting](#Troubleshooting).
 ![image](https://github.com/user-attachments/assets/0f214ead-8bf1-42f7-ae7a-cafca0af7b61)
