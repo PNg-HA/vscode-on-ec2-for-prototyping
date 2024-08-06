@@ -24,18 +24,18 @@ Refer: https://www.youtube.com/watch?v=kYtRSSpUduw
 
 2. Install npm package manager with the command `sudo apt install npm`.
 
-4. However, you will see that the version is not up-to-date. To update the node version. run the command `sudo npm install -g n`. 
+3. However, you will see that the version is not up-to-date. To update the node version. run the command `sudo npm install -g n`. 
 
 
 <img width="30%" src=https://github.com/user-attachments/assets/61bdc8a7-b088-4731-bb9f-95b69f11dc33>
 
 'n' provides an interactive way to manage Node.js versions
 
-5. To istall the latest LTS version of Node.js, run `sudo n lts`.
+4. To istall the latest LTS version of Node.js, run `sudo n lts`.
    
 ![image](https://github.com/user-attachments/assets/58762f10-5831-4a25-ab15-ed4d89bba205)
 
-Check version:
+5. Check version:
 
 <img width="30%" src=https://github.com/user-attachments/assets/9af23ebe-53b6-4542-a7f1-e84133ed4527>
 
